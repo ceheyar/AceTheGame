@@ -1,9 +1,10 @@
 name: AceTheGame CI
-on: [push, workflow_dispatch, pull_request]
+on: 
+  workflow_dispatch:
 
 jobs:
   ACE:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,7 +41,7 @@ jobs:
         run: ./test/test_ace -s
 
   Modder-linux:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
@@ -62,46 +63,9 @@ jobs:
         working-directory: ./Modder
         # only build no testing
         run: ./gradlew test
-  Modder-windows:
-    runs-on: windows-2022
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: "true"
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10' 
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu' 
-          java-version: '17'
-
-      - name: "install build tools"
-        run: choco install apktool --version=2.5.0
-
-      - name: "install pkgconfig"
-        run: choco install pkgconfiglite
-
-      - name: generating code for injection
-        working-directory: ./Modder/injector
-        run: python3 ./gen_smali.py
-
-      - name: build
-        working-directory: ./Modder
-        # only build no testing
-        run: ./gradlew build -x test
-
-      - name: test
-        working-directory: ./Modder
-        # only build no testing
-        run: ./gradlew test
-
-  
 
   ATG:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:

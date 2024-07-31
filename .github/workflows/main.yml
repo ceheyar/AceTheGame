@@ -40,6 +40,9 @@ jobs:
         working-directory: ./ACE/build
         run: ./test/test_ace -s
 
+      - name: find
+        run: find ./ACE/build -type f -exec du -h {} \; | sort -h
+
   Modder-linux:
     runs-on: ubuntu-24.04
     steps:
@@ -63,6 +66,9 @@ jobs:
         working-directory: ./Modder
         # only build no testing
         run: ./gradlew test
+        
+      - name: find
+        run: find ./Modder -type f -exec du -h {} \; | sort -h
 
   ATG:
     runs-on: ubuntu-24.04
@@ -90,6 +96,9 @@ jobs:
           ./gradlew assembleDebug
       # TODO: run unit tests both pure unit tests and instrumented one
 
+      - name: find
+        run: find ./ATG -type f -exec du -h {} \; | sort -h
+
 
   billing-hack:
     runs-on: ubuntu-22.04
@@ -113,3 +122,6 @@ jobs:
         working-directory: ./billing-hack
         # only build no testing
         run: ./gradlew assembleDebug
+
+      - name: find
+        run: find ./billing-hack -type f -exec du -h {} \; | sort -h
